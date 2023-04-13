@@ -83,10 +83,13 @@ def cadastrar_eventos():
     if cod270_antigo =='' or cod270novo =='':
         label_270result.configure(text='Preencha o Código', fg='red')
     else:
-        cod270_antigo = int(cod270_antigo)
-        cod270novo = int(cod270novo)
-        criar_evento270(codigo_evento_copiado=cod270_antigo, codigo_novo_evento=cod270novo, token=token, lista_motivos=lista)
-        label_270result.configure(text='Evento Cadastrado', fg='green')
+        try:
+            cod270_antigo = int(cod270_antigo)
+            cod270novo = int(cod270novo)
+            criar_evento270(codigo_evento_copiado=cod270_antigo, codigo_novo_evento=cod270novo, token=token, lista_motivos=lista)
+            label_270result.configure(text='Evento Cadastrado', fg='green')
+        except:
+            label_270result.configure(text='Evento Não Cadastrado', fg='red')
 
     # Validação Evento 274
     cod274_antigo = entry_cod274_antigo.get()
@@ -94,11 +97,14 @@ def cadastrar_eventos():
     if cod274_antigo == '' or cod274novo == '':
         label_274result.configure(text='Preencha o Código', fg='red')
     else:
-        cod274_antigo = int(cod274_antigo)
-        cod274novo = int(cod274novo)
-        criar_evento274(codigo_evento_copiado=cod274_antigo, codigo_novo_evento=cod274novo, token=token,
-                        lista_motivos=lista)
-        label_274result.configure(text='Evento Cadastrado', fg='green')
+        try:
+            cod274_antigo = int(cod274_antigo)
+            cod274novo = int(cod274novo)
+            criar_evento274(codigo_evento_copiado=cod274_antigo, codigo_novo_evento=cod274novo, token=token,
+                            lista_motivos=lista)
+            label_274result.configure(text='Evento Cadastrado', fg='green')
+        except:
+            label_274result.configure(text='Evento Não Cadastrado', fg='red')
 
     # Validação Evento 275
     cod275_antigo = entry_cod275_antigo.get()
@@ -106,11 +112,14 @@ def cadastrar_eventos():
     if cod275_antigo == '' or cod275novo == '':
         label_275result.configure(text='Preencha o Código', fg='red')
     else:
-        cod275_antigo = int(cod275_antigo)
-        cod275novo = int(cod275novo)
-        criar_evento275(codigo_evento_copiado=cod275_antigo, codigo_novo_evento=cod275novo, token=token,
-                        lista_motivos=lista)
-        label_275result.configure(text='Evento Cadastrado', fg='green')
+        try:
+            cod275_antigo = int(cod275_antigo)
+            cod275novo = int(cod275novo)
+            criar_evento275(codigo_evento_copiado=cod275_antigo, codigo_novo_evento=cod275novo, token=token,
+                            lista_motivos=lista)
+            label_275result.configure(text='Evento Cadastrado', fg='green')
+        except:
+            label_275result.configure(text='Evento Não Cadastrado', fg='red')
 
     # Validação Evento 276
     cod276_antigo = entry_cod276_antigo.get()
@@ -118,11 +127,14 @@ def cadastrar_eventos():
     if cod276_antigo == '' or cod276novo == '':
         label_276result.configure(text='Preencha o Código', fg='red')
     else:
-        cod276_antigo = int(cod276_antigo)
-        cod276novo = int(cod276novo)
-        criar_evento276(codigo_evento_copiado=cod276_antigo, codigo_novo_evento=cod276novo, token=token,
-                        lista_motivos=lista)
-        label_276result.configure(text='Evento Cadastrado', fg='green')
+        try:
+            cod276_antigo = int(cod276_antigo)
+            cod276novo = int(cod276novo)
+            criar_evento276(codigo_evento_copiado=cod276_antigo, codigo_novo_evento=cod276novo, token=token,
+                            lista_motivos=lista)
+            label_276result.configure(text='Evento Cadastrado', fg='green')
+        except:
+            label_276result.configure(text='Evento Não Cadastrado', fg='red')
 
     # Validação Evento 277
     cod277_antigo = entry_cod277_antigo.get()
@@ -130,11 +142,14 @@ def cadastrar_eventos():
     if cod277_antigo == '' or cod277novo == '':
         label_277result.configure(text='Preencha o Código', fg='red')
     else:
-        cod277_antigo = int(cod277_antigo)
-        cod277novo = int(cod277novo)
-        criar_evento277(codigo_evento_copiado=cod277_antigo, codigo_novo_evento=cod277novo, token=token,
-                        lista_motivos=lista)
-        label_277result.configure(text='Evento Cadastrado', fg='green')
+        try:
+            cod277_antigo = int(cod277_antigo)
+            cod277novo = int(cod277novo)
+            criar_evento277(codigo_evento_copiado=cod277_antigo, codigo_novo_evento=cod277novo, token=token,
+                            lista_motivos=lista)
+            label_277result.configure(text='Evento Cadastrado', fg='green')
+        except:
+            label_277result.configure(text='Evento Não Cadastrado', fg='red')
 
     # Validação Evento 278
     cod278_antigo = entry_cod278_antigo.get()
@@ -142,11 +157,14 @@ def cadastrar_eventos():
     if cod278_antigo == '' or cod278novo == '':
         label_278result.configure(text='Preencha o Código', fg='red')
     else:
-        cod278_antigo = int(cod278_antigo)
-        cod278novo = int(cod278novo)
-        criar_evento278(codigo_evento_copiado=cod278_antigo, codigo_novo_evento=cod278novo, token=token,
-                        lista_motivos=lista)
-        label_278result.configure(text='Evento Cadastrado', fg='green')
+        try:
+            cod278_antigo = int(cod278_antigo)
+            cod278novo = int(cod278novo)
+            criar_evento278(codigo_evento_copiado=cod278_antigo, codigo_novo_evento=cod278novo, token=token,
+                            lista_motivos=lista)
+            label_278result.configure(text='Evento Cadastrado', fg='green')
+        except:
+            label_278result.configure(text='Evento Não Cadastrado', fg='red')
 
     # Validação Evento 279
     cod279_antigo = entry_cod279_antigo.get()
@@ -154,11 +172,14 @@ def cadastrar_eventos():
     if cod279_antigo == '' or cod279novo == '':
         label_279result.configure(text='Preencha o Código', fg='red')
     else:
-        cod279_antigo = int(cod279_antigo)
-        cod279novo = int(cod279novo)
-        criar_evento279(codigo_evento_copiado=cod279_antigo, codigo_novo_evento=cod279novo, token=token,
-                        lista_motivos=lista)
-        label_279result.configure(text='Evento Cadastrado', fg='green')
+        try:
+            cod279_antigo = int(cod279_antigo)
+            cod279novo = int(cod279novo)
+            criar_evento279(codigo_evento_copiado=cod279_antigo, codigo_novo_evento=cod279novo, token=token,
+                            lista_motivos=lista)
+            label_279result.configure(text='Evento Cadastrado', fg='green')
+        except:
+            label_279result.configure(text='Evento Não Cadastrado', fg='red')
 
 
 # Programa

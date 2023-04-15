@@ -424,11 +424,11 @@ def criar_evento278(codigo_evento_copiado, codigo_novo_evento, token, lista_moti
                 del item['id']
                 del item['version']
                 item['codigo'] = codigo_novo_evento
-                item['descricao'] = 'VANTAGENS 13º SALÁRIO NA RESCISÃO'
+                item['descricao'] = 'MÉDIA PERCENTUAL 13º SALÁRIO NA RESCISÃO'
                 item['inicioVigencia'] = '2022-08'
                 item['naturezaRubrica'] = 'DECIMO_TERCEIRO_SALARIO_PROPORCIONAL_RESCISAO'
                 item['codigoEsocial'] = codigo_novo_evento
-                item['observacao'] = 'VANTAGENS 13º SALÁRIO NA RESCISÃO'
+                item['observacao'] = 'MÉDIA PERCENTUAL 13º SALÁRIO NA RESCISÃO'
                 del item['script']['id']
                 item['script']['content'] = formata_texto(evento278)
                 # Verifica se existe as configurações de processamento

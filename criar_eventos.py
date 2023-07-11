@@ -464,6 +464,7 @@ def criar_evento278(codigo_evento_copiado, codigo_novo_evento, token, lista_moti
 
                 envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
 
+
 def criar_evento279(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
     hasNext = True
     offset = 0
@@ -529,6 +530,587 @@ def criar_evento279(codigo_evento_copiado, codigo_novo_evento, token, lista_moti
                 print('-'*56)
 
                 envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+def criar_evento271(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 271-13SALARIOINTEGRALAPOSENTADO
+    with open('271-13SALARIOINTEGRALAPOSENTADO.groovy', 'r') as f:
+        evento271 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 25
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = '13ª SALÁRIO INTEGRAL APOSENTADO'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'INTEGRAL_13_SALARIO'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = '13º SALÁRIO INTEGRAL APOSENTADO'
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento271)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = []
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = []
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento271)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+def criar_evento272(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 272-13SALARIOADIANTADOAPOSENTADO
+    with open('272-13SALARIOADIANTADOAPOSENTADO.groovy', 'r') as f:
+        evento272 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 26
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = '13º SALÁRIO ADIANTADO APOSENTADO'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'ADIANTAMENTO_13_SALARIO'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = '13º SALÁRIO ADIANTADO APOSENTADO'
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento272)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = ['ADIANTAMENTO']
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = []
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = []
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento272)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+def criar_evento273(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 273-ADIANTAMENTO 13º SALÁRIO APOSENTADO
+    with open('273-ADIANTAMENTO13SALARIOAPOSENTADO.groovy', 'r') as f:
+        evento273 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 43
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = 'ADIANTAMENTO 13º SALÁRIO APOSENTADO'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'ADIANTAMENTO_13_SALARIO'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = 'ADIANTAMENTO 13º SALÁRIO APOSENTADO'
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento273)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = []
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = []
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento273)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+def criar_evento300(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 300-13º SALÁRIO INTEGRAL - AUXÍLIO MATERNIDADE
+    with open('300-13SALARIOINTEGRALAUXILIOMATERNIDADE.groovy', 'r') as f:
+        evento300 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 26
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = '13º SALÁRIO INTEGRAL - AUXÍLIO MATERNIDADE'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'SALARIO_MATERNIDADE_13_SALARIO'
+                item['classificacao'] = 'AUXMATERNIDADE13'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = '13º SALÁRIO INTEGRAL - AUXÍLIO MATERNIDADE'
+                item['incidenciaPrevidenciaSocial'] = 'SALARIO_MATERNIDADE_DECIMO_TERCEIRO_SALARIO_PAGO_PELO_EMPREGADOR'
+                item['incidenciaIrrf'] = 'DECIMO_TERCEIRO_SALARIO_DECIMO_TERCEIRO'
+                item['incidenciaFgts'] = 'NAO_E_BASE_DE_CALCULO_DO_FGTS'
+                item['incidenciaContribuicaoSindicalLaboral'] = 'NAO_E_BASE_DE_CALCULO'
+                item['incidenciaRpps'] = 'NAO_E_BASE_DE_CALCULO_DE_CONTRIBUICOES_DEVIDAS_AO_RPPS_REGIME_MILITAR'
+                item['enviaRais'] = True
+                item['enviaEsocial'] = True
+                item['enviaTransparencia'] = True
+                item['tetoRemuneratorio'] = True
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento300)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = lista_motivos
+                else:
+                    # Se não possuir a Key RESCISAO inclui
+                    configuracaoProcessamentos['RESCISAO'] = {'tipoProcessamento': 'RESCISAO',
+                    'subTipos': ['INTEGRAL'], 'motivosRescisao': lista_motivos}
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento300)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+def criar_evento301(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 301-MÉDIA HORAS 13º SALÁRIO - AUXÍLIO MATERNIDADE
+    with open('301-MEDIAHORAS13SALARIOAUXILIOMATERNIDADE.groovy', 'r') as f:
+        evento301 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 28
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = 'MÉDIA HORAS 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'SALARIO_MATERNIDADE_13_SALARIO'
+                item['classificacao'] = 'AUXMATERNIDADE13'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = 'MÉDIA HORAS 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['incidenciaPrevidenciaSocial'] = 'SALARIO_MATERNIDADE_DECIMO_TERCEIRO_SALARIO_PAGO_PELO_EMPREGADOR'
+                item['incidenciaIrrf'] = 'DECIMO_TERCEIRO_SALARIO_DECIMO_TERCEIRO'
+                item['incidenciaFgts'] = 'NAO_E_BASE_DE_CALCULO_DO_FGTS'
+                item['incidenciaContribuicaoSindicalLaboral'] = 'NAO_E_BASE_DE_CALCULO'
+                item['incidenciaRpps'] = 'NAO_E_BASE_DE_CALCULO_DE_CONTRIBUICOES_DEVIDAS_AO_RPPS_REGIME_MILITAR'
+                item['enviaRais'] = True
+                item['enviaEsocial'] = True
+                item['enviaTransparencia'] = True
+                item['tetoRemuneratorio'] = True
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento301)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = lista_motivos
+                else:
+                    # Se não possuir a Key RESCISAO inclui
+                    configuracaoProcessamentos['RESCISAO'] = {'tipoProcessamento': 'RESCISAO',
+                    'subTipos': ['INTEGRAL'], 'motivosRescisao': lista_motivos}
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento301)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+def criar_evento302(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 302-MÉDIA VALOR 13º SALÁRIO - AUXÍLIO MATERNIDADE
+    with open('302-MEDIAVALOR13SALARIOAUXILIOMATERNIDADE.groovy', 'r') as f:
+        evento302 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 29
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = 'MÉDIA VALOR 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'SALARIO_MATERNIDADE_13_SALARIO'
+                item['classificacao'] = 'AUXMATERNIDADE13'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = 'MÉDIA VALOR 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['incidenciaPrevidenciaSocial'] = 'SALARIO_MATERNIDADE_DECIMO_TERCEIRO_SALARIO_PAGO_PELO_EMPREGADOR'
+                item['incidenciaIrrf'] = 'DECIMO_TERCEIRO_SALARIO_DECIMO_TERCEIRO'
+                item['incidenciaFgts'] = 'NAO_E_BASE_DE_CALCULO_DO_FGTS'
+                item['incidenciaContribuicaoSindicalLaboral'] = 'NAO_E_BASE_DE_CALCULO'
+                item['incidenciaRpps'] = 'NAO_E_BASE_DE_CALCULO_DE_CONTRIBUICOES_DEVIDAS_AO_RPPS_REGIME_MILITAR'
+                item['enviaRais'] = True
+                item['enviaEsocial'] = True
+                item['enviaTransparencia'] = True
+                item['tetoRemuneratorio'] = True
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento302)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = lista_motivos
+                else:
+                    # Se não possuir a Key RESCISAO inclui
+                    configuracaoProcessamentos['RESCISAO'] = {'tipoProcessamento': 'RESCISAO',
+                    'subTipos': ['INTEGRAL'], 'motivosRescisao': lista_motivos}
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento302)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+
+def criar_evento303(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 303-VANTAGENS 13º SALÁRIO - AUXÍLIO MATERNIDADE
+    with open('303-VANTAGENS13SALARIOAUXILIOMATERNIDADE.groovy', 'r') as f:
+        evento303 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 30
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = 'VANTAGENS 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'SALARIO_MATERNIDADE_13_SALARIO'
+                item['classificacao'] = 'AUXMATERNIDADE13'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = 'VANTAGENS 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['incidenciaPrevidenciaSocial'] = 'SALARIO_MATERNIDADE_DECIMO_TERCEIRO_SALARIO_PAGO_PELO_EMPREGADOR'
+                item['incidenciaIrrf'] = 'DECIMO_TERCEIRO_SALARIO_DECIMO_TERCEIRO'
+                item['incidenciaFgts'] = 'NAO_E_BASE_DE_CALCULO_DO_FGTS'
+                item['incidenciaContribuicaoSindicalLaboral'] = 'NAO_E_BASE_DE_CALCULO'
+                item['incidenciaRpps'] = 'NAO_E_BASE_DE_CALCULO_DE_CONTRIBUICOES_DEVIDAS_AO_RPPS_REGIME_MILITAR'
+                item['enviaRais'] = True
+                item['enviaEsocial'] = True
+                item['enviaTransparencia'] = True
+                item['tetoRemuneratorio'] = True
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento303)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = ['INTEGRAL']
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = lista_motivos
+                else:
+                    # Se não possuir a Key RESCISAO inclui
+                    configuracaoProcessamentos['RESCISAO'] = {'tipoProcessamento': 'RESCISAO',
+                    'subTipos': ['INTEGRAL'], 'motivosRescisao': lista_motivos}
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento303)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
+def criar_evento304(codigo_evento_copiado, codigo_novo_evento, token, lista_motivos):
+    hasNext = True
+    offset = 0
+    limit = 100
+    page = 1
+
+    # Importando formula do evento 304-MÉDIA PERCENTUAL 13º SALÁRIO - AUXÍLIO MATERNIDADE
+    with open('304-MEDIAPERCENTUAL13SALARIOAUXILIOMATERNIDADE.groovy', 'r') as f:
+        evento304 = f.read()
+
+    while hasNext:
+        url = f'https://pessoal.cloud.betha.com.br/service-layer/v1/api/configuracao-evento?offset={offset}&limit={limit}'
+        headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+        response = requests.request("GET", url, headers=headers)
+        if response.status_code != 200:
+            print('Erro: ', response.text)
+        response = response.json()
+        offset = limit * page
+        page += 1
+        hasNext = response['hasNext']
+        for item in response['content']:
+            if item['codigo'] == codigo_evento_copiado: # Será copiado do 233
+                print(item)
+                del item['id']
+                del item['version']
+                item['codigo'] = codigo_novo_evento
+                item['descricao'] = 'MÉDIA PERCENTUAL 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['inicioVigencia'] = '2022-08'
+                item['naturezaRubrica'] = 'SALARIO_MATERNIDADE_13_SALARIO'
+                item['classificacao'] = 'AUXMATERNIDADE13'
+                item['codigoEsocial'] = codigo_novo_evento
+                item['observacao'] = 'MÉDIA PERCENTUAL 13º SALÁRIO - AUXÍLIO MATERNIDADE'
+                item['incidenciaPrevidenciaSocial'] = 'SALARIO_MATERNIDADE_DECIMO_TERCEIRO_SALARIO_PAGO_PELO_EMPREGADOR'
+                item['incidenciaIrrf'] = 'DECIMO_TERCEIRO_SALARIO_DECIMO_TERCEIRO'
+                item['incidenciaFgts'] = 'NAO_E_BASE_DE_CALCULO_DO_FGTS'
+                item['incidenciaContribuicaoSindicalLaboral'] = 'NAO_E_BASE_DE_CALCULO'
+                item['incidenciaRpps'] = 'NAO_E_BASE_DE_CALCULO_DE_CONTRIBUICOES_DEVIDAS_AO_RPPS_REGIME_MILITAR'
+                item['enviaRais'] = True
+                item['enviaEsocial'] = True
+                item['enviaTransparencia'] = True
+                item['tetoRemuneratorio'] = True
+                del item['script']['id']
+                item['script']['content'] = formata_texto(evento304)
+                # Verifica se existe as configurações de processamento
+                configuracaoProcessamentos = item['configuracaoProcessamentos']
+                if 'MENSAL' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['MENSAL']['subTipos'] = []
+                    item['configuracaoProcessamentos']['MENSAL']['motivosRescisao'] = []
+                if 'DECIMO_TERCEIRO_SALARIO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['subTipos'] = []
+                    item['configuracaoProcessamentos']['DECIMO_TERCEIRO_SALARIO']['motivosRescisao'] = []
+                if 'FERIAS' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['FERIAS']['subTipos'] = []
+                    item['configuracaoProcessamentos']['FERIAS']['motivosRescisao'] = []
+                if 'RESCISAO' in configuracaoProcessamentos:
+                    item['configuracaoProcessamentos']['RESCISAO']['subTipos'] = []
+                    item['configuracaoProcessamentos']['RESCISAO']['motivosRescisao'] = []
+
+                item['historicos'] = []
+                item['camposAdicionais'] = []
+                item['formula'] = formata_texto(evento304)
+
+                payloadPostEvento = json.dumps([
+                    {
+                        "conteudo": item
+                    }
+                ])
+                print('-'*25,'POST','-'*25)
+                print(payloadPostEvento)
+                print('-'*56)
+
+                envia_verifica_lote(operacao='POST', bearer=token, payload=payloadPostEvento, api='configuracao-evento')
+
+
 
 # Se refere ao Evento 270 – HORAS NORMAIS NA RESCISÃO - FORMULA PADRÃO
 # Esse evento substitui o evento 1 – HORAS NORMAIS no processamento de rescisão.
